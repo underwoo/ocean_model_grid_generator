@@ -16,5 +16,5 @@ jobs:
       run: python3 -m pip install git+https://github.com/adcroft/numpypi.git
     - name: Install netCDF4
       run: python3 -m pip install netCDF4
-    - name: numpypi series test
-      run: pytest -v
+    - name: Test grid generator
+      run: pwd && pytest -v
