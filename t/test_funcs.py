@@ -1,6 +1,6 @@
 import pytest
 import numpy
-import ocean_grid_generator as ogg
+from .. import ocean_grid_generator as ogg
 
 def test_ogg_chksum(capsys):
     ogg.chksum(numpy.array([0, 1]), 'a')
