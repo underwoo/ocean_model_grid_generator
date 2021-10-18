@@ -38,18 +38,9 @@ def bipolar_projection(lamg,phig,lon_bp,rp, metrics_only=False):
     sphig = np.sin(phig*PI_180)
     alpha2 = (np.cos(tmp))**2 #This makes dy symmetric
     beta2_inv = (np.tan(phig*PI_180))**2
+    # Deal with inf in beta2_inv
     beta2_inv = np.where((beta2_inv == np.inf), HUGE, beta2_inv)
-    with np.errstate(all='raise'):
-        try:
-            rden = 1./(1.+alpha2*beta2_inv)
-        except:
-            print(f"phig = {phig}")
-            print(f"tmp = {tmp}")
-            print(f"sinla = {sinla}")
-            print(f"sphig = {sphig}")
-            print(f"alpha2 = {alpha2}")
-            print(f"beta2_inv = {beta2_inv}")
-            sys.exit(1)
+    rden = 1./(1.+alpha2*beta2_inv)
 
     if(not metrics_only):
         B=sinla*np.sqrt(rden) #Actually two equations  +- |B|

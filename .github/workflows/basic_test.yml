@@ -4,12 +4,18 @@ on: [push, pull_request]
 
 jobs:
   basictests:
+    name: Test ${{ matrix.python }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-18.04, ubuntu-latest]
+        python: [3.6, 3.7, 3.8, 3.9]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
       with:
-        python-version: '>=3.6'
+        python-version: ${{ maxtrix.python }}
     - name: Install pytest
       run: python3 -m pip install pytest
     - name: Install numpypi
@@ -17,4 +23,4 @@ jobs:
     - name: Install netCDF4
       run: python3 -m pip install netCDF4
     - name: Test grid generator
-      run: pwd && pytest -v
+      run: pytest -v
